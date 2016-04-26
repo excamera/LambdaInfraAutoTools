@@ -11,4 +11,5 @@ AM_CXXFLAGS = $(NEEDED_CXXFLAGS)
 
 noinst_LIBRARIES = liblambda.a
 
-liblamda_a_SOURCES = lambda/util.hh
+liblambda_a_SOURCES = lambda/helloworld.hh \
+		      lambda/helloworld.cc

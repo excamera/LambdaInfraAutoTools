@@ -8,8 +8,8 @@
 
 AC_PREREQ([2.68])
 AC_INIT([Pipelines], [0.01], [rbhalerao@eng.ucsd.edu])
-AM_INIT_AUTOMAKE([foreign])
-AC_CONFIG_SRCDIR([src/run.hh])
+AM_INIT_AUTOMAKE([foreign subdir-objects])
+AC_CONFIG_SRCDIR([src])
 AC_CONFIG_HEADERS([config.h])
 
 # Add CXXFLAGS
