@@ -18,4 +18,4 @@ lambdainstall: build
 lambdaupdate: build
 	$(shell ./updatelambda.sh $<)
 check: build
-	$(shell ./invokelambda.sh $<)
+	$(python ./test_invoke.py $<)
