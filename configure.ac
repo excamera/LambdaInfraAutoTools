@@ -9,7 +9,7 @@
 AC_PREREQ([2.68])
 AC_INIT([Pipelines], [0.01], [rbhalerao@eng.ucsd.edu])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
-AC_CONFIG_SRCDIR([src/helloworld.cc])
+AC_CONFIG_SRCDIR([src/helloworld.c])
 AC_CONFIG_HEADERS([config.h])
 
 # Add CXXFLAGS
