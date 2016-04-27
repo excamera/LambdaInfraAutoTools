@@ -85,6 +85,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+build_triplet = x86_64-apple-darwin15.4.0
+host_triplet = x86_64-apple-darwin15.4.0
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -155,8 +157,8 @@ ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in depcomp \
-	install-sh missing
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in compile \
+	config.guess config.sub install-sh ltmain.sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -202,35 +204,58 @@ distcleancheck_listfiles = find . -type f -print
 ACLOCAL = ${SHELL} /Users/vbk/Downloads/Pipelines/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
+AR = ar
 AUTOCONF = ${SHELL} /Users/vbk/Downloads/Pipelines/missing autoconf
 AUTOHEADER = ${SHELL} /Users/vbk/Downloads/Pipelines/missing autoheader
 AUTOMAKE = ${SHELL} /Users/vbk/Downloads/Pipelines/missing automake-1.15
 AWK = awk
+CC = gcc
+CCDEPMODE = depmode=gcc3
+CFLAGS = -g -O2
+CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
 CXX11_FLAGS = -std=c++11 -pthread
+CXXCPP = g++ -E
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -g -O2
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
+DLLTOOL = false
+DSYMUTIL = dsymutil
+DUMPBIN = 
 ECHO_C = \c
 ECHO_N = 
 ECHO_T = 
+EGREP = /usr/bin/grep -E
 EXEEXT = 
+FGREP = /usr/bin/grep -F
+GREP = /usr/bin/grep
 INSTALL = /usr/local/bin/ginstall -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
+LD = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
 LDFLAGS = 
 LIBOBJS = 
 LIBS = 
+LIBTOOL = $(SHELL) $(top_builddir)/libtool
+LIPO = lipo
+LN_S = ln -s
 LTLIBOBJS = 
+LT_SYS_LIBRARY_PATH = 
 MAKEINFO = ${SHELL} /Users/vbk/Downloads/Pipelines/missing makeinfo
+MANIFEST_TOOL = :
 MKDIR_P = /usr/local/bin/gmkdir -p
-NEEDED_CXXFLAGS = -Wall -pedantic -Wextra -Weffc++ -Werror
+NEEDED_CXXFLAGS = -Wall
+NM = /usr/bin/nm -B
+NMEDIT = nmedit
+OBJDUMP = false
 OBJEXT = o
+OTOOL = otool
+OTOOL64 = :
 PACKAGE = pipelines
 PACKAGE_BUGREPORT = rbhalerao@eng.ucsd.edu
 PACKAGE_NAME = Pipelines
@@ -240,29 +265,41 @@ PACKAGE_URL =
 PACKAGE_VERSION = 0.01
 PATH_SEPARATOR = :
 RANLIB = ranlib
+SED = /usr/local/bin/gsed
 SET_MAKE = 
 SHELL = /bin/sh
-STRIP = 
+STRIP = strip
 VERSION = 0.01
 abs_builddir = /Users/vbk/Downloads/Pipelines
 abs_srcdir = /Users/vbk/Downloads/Pipelines
 abs_top_builddir = /Users/vbk/Downloads/Pipelines
 abs_top_srcdir = /Users/vbk/Downloads/Pipelines
+ac_ct_AR = ar
+ac_ct_CC = gcc
 ac_ct_CXX = g++
+ac_ct_DUMPBIN = 
 am__include = include
 am__leading_dot = .
 am__quote = 
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
+build = x86_64-apple-darwin15.4.0
 build_alias = 
+build_cpu = x86_64
+build_os = darwin15.4.0
+build_vendor = apple
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
+host = x86_64-apple-darwin15.4.0
 host_alias = 
+host_cpu = x86_64
+host_os = darwin15.4.0
+host_vendor = apple
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -286,7 +323,6 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
-AUTOMAKE_OPTIONS = foreign
 SUBDIRS = src examples
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
@@ -340,6 +376,15 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+	-rm -f libtool config.lt
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run 'make' without going through this Makefile.
@@ -672,12 +717,13 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-recursive
 
-clean-am: clean-generic mostlyclean-am
+clean-am: clean-generic clean-libtool mostlyclean-am
 
 distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -f Makefile
-distclean-am: clean-am distclean-generic distclean-hdr distclean-tags
+distclean-am: clean-am distclean-generic distclean-hdr \
+	distclean-libtool distclean-tags
 
 dvi: dvi-recursive
 
@@ -727,7 +773,7 @@ maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-recursive
 
-mostlyclean-am: mostlyclean-generic
+mostlyclean-am: mostlyclean-generic mostlyclean-libtool
 
 pdf: pdf-recursive
 
@@ -743,22 +789,35 @@ uninstall-am:
 
 .PHONY: $(am__recursive_targets) CTAGS GTAGS TAGS all all-am \
 	am--refresh check check-am clean clean-cscope clean-generic \
-	cscope cscopelist-am ctags ctags-am dist dist-all dist-bzip2 \
-	dist-gzip dist-lzip dist-shar dist-tarZ dist-xz dist-zip \
-	distcheck distclean distclean-generic distclean-hdr \
-	distclean-tags distcleancheck distdir distuninstallcheck dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs installdirs-am \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-generic pdf pdf-am ps ps-am tags tags-am uninstall \
+	clean-libtool cscope cscopelist-am ctags ctags-am dist \
+	dist-all dist-bzip2 dist-gzip dist-lzip dist-shar dist-tarZ \
+	dist-xz dist-zip distcheck distclean distclean-generic \
+	distclean-hdr distclean-libtool distclean-tags distcleancheck \
+	distdir distuninstallcheck dvi dvi-am html html-am info \
+	info-am install install-am install-data install-data-am \
+	install-dvi install-dvi-am install-exec install-exec-am \
+	install-html install-html-am install-info install-info-am \
+	install-man install-pdf install-pdf-am install-ps \
+	install-ps-am install-strip installcheck installcheck-am \
+	installdirs installdirs-am maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-generic \
+	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-am uninstall \
 	uninstall-am
 
 .PRECIOUS: Makefile
 
+
+build: config.h
+	cd src && $(MAKE) $(AM_MAKEFLAGS) build
+
+lambdainstall: config.h
+	cd src && $(MAKE) $(AM_MAKEFLAGS) lambdainstall
+
+lambdaupdate: config.h
+	cd src && $(MAKE) $(AM_MAKEFLAGS) lambdaupdate
+
+check: config.h
+	cd src && $(MAKE) $(AM_MAKEFLAGS) check
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

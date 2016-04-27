@@ -85,6 +85,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+build_triplet = x86_64-apple-darwin15.4.0
+host_triplet = x86_64-apple-darwin15.4.0
 subdir = examples
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -120,35 +122,58 @@ DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = ${SHELL} /Users/vbk/Downloads/Pipelines/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
+AR = ar
 AUTOCONF = ${SHELL} /Users/vbk/Downloads/Pipelines/missing autoconf
 AUTOHEADER = ${SHELL} /Users/vbk/Downloads/Pipelines/missing autoheader
 AUTOMAKE = ${SHELL} /Users/vbk/Downloads/Pipelines/missing automake-1.15
 AWK = awk
+CC = gcc
+CCDEPMODE = depmode=gcc3
+CFLAGS = -g -O2
+CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
 CXX11_FLAGS = -std=c++11 -pthread
+CXXCPP = g++ -E
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -g -O2
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
+DLLTOOL = false
+DSYMUTIL = dsymutil
+DUMPBIN = 
 ECHO_C = \c
 ECHO_N = 
 ECHO_T = 
+EGREP = /usr/bin/grep -E
 EXEEXT = 
+FGREP = /usr/bin/grep -F
+GREP = /usr/bin/grep
 INSTALL = /usr/local/bin/ginstall -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
+LD = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
 LDFLAGS = 
 LIBOBJS = 
 LIBS = 
+LIBTOOL = $(SHELL) $(top_builddir)/libtool
+LIPO = lipo
+LN_S = ln -s
 LTLIBOBJS = 
+LT_SYS_LIBRARY_PATH = 
 MAKEINFO = ${SHELL} /Users/vbk/Downloads/Pipelines/missing makeinfo
+MANIFEST_TOOL = :
 MKDIR_P = /usr/local/bin/gmkdir -p
-NEEDED_CXXFLAGS = -Wall -pedantic -Wextra -Weffc++ -Werror
+NEEDED_CXXFLAGS = -Wall
+NM = /usr/bin/nm -B
+NMEDIT = nmedit
+OBJDUMP = false
 OBJEXT = o
+OTOOL = otool
+OTOOL64 = :
 PACKAGE = pipelines
 PACKAGE_BUGREPORT = rbhalerao@eng.ucsd.edu
 PACKAGE_NAME = Pipelines
@@ -158,29 +183,41 @@ PACKAGE_URL =
 PACKAGE_VERSION = 0.01
 PATH_SEPARATOR = :
 RANLIB = ranlib
+SED = /usr/local/bin/gsed
 SET_MAKE = 
 SHELL = /bin/sh
-STRIP = 
+STRIP = strip
 VERSION = 0.01
 abs_builddir = /Users/vbk/Downloads/Pipelines/examples
 abs_srcdir = /Users/vbk/Downloads/Pipelines/examples
 abs_top_builddir = /Users/vbk/Downloads/Pipelines
 abs_top_srcdir = /Users/vbk/Downloads/Pipelines
+ac_ct_AR = ar
+ac_ct_CC = gcc
 ac_ct_CXX = g++
+ac_ct_DUMPBIN = 
 am__include = include
 am__leading_dot = .
 am__quote = 
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
+build = x86_64-apple-darwin15.4.0
 build_alias = 
+build_cpu = x86_64
+build_os = darwin15.4.0
+build_vendor = apple
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
+host = x86_64-apple-darwin15.4.0
 host_alias = 
+host_cpu = x86_64
+host_os = darwin15.4.0
+host_vendor = apple
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -236,6 +273,12 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
 tags TAGS:
 
 ctags CTAGS:
@@ -309,7 +352,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic mostlyclean-am
+clean-am: clean-generic clean-libtool mostlyclean-am
 
 distclean: distclean-am
 	-rm -f Makefile
@@ -361,7 +404,7 @@ maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-am
 
-mostlyclean-am: mostlyclean-generic
+mostlyclean-am: mostlyclean-generic mostlyclean-libtool
 
 pdf: pdf-am
 
@@ -375,16 +418,17 @@ uninstall-am:
 
 .MAKE: install-am install-strip
 
-.PHONY: all all-am check check-am clean clean-generic cscopelist-am \
-	ctags-am distclean distclean-generic distdir dvi dvi-am html \
-	html-am info info-am install install-am install-data \
-	install-data-am install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am tags-am uninstall uninstall-am
+.PHONY: all all-am check check-am clean clean-generic clean-libtool \
+	cscopelist-am ctags-am distclean distclean-generic \
+	distclean-libtool distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags-am uninstall uninstall-am
 
 .PRECIOUS: Makefile
 

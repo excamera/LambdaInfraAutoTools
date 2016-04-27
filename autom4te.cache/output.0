@@ -584,7 +584,7 @@ PACKAGE_STRING='Pipelines 0.01'
 PACKAGE_BUGREPORT='rbhalerao@eng.ucsd.edu'
 PACKAGE_URL=''
 
-ac_unique_file="src"
+ac_unique_file="src/lambda/helloworld.hh"
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
@@ -2402,7 +2402,7 @@ ac_config_headers="$ac_config_headers config.h"
 
 # Add CXXFLAGS
 CXX11_FLAGS="-std=c++11 -pthread"
-NEEDED_CXXFLAGS="-Wall -pedantic -Wextra -Weffc++ -Werror"
+NEEDED_CXXFLAGS="-Wall"
 
 
 

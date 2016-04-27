@@ -9,16 +9,18 @@
 AC_PREREQ([2.68])
 AC_INIT([Pipelines], [0.01], [rbhalerao@eng.ucsd.edu])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
-AC_CONFIG_SRCDIR([src])
+AC_CONFIG_SRCDIR([src/helloworld.cc])
 AC_CONFIG_HEADERS([config.h])
 
 # Add CXXFLAGS
 CXX11_FLAGS="-std=c++11 -pthread"
-NEEDED_CXXFLAGS="-Wall -pedantic -Wextra -Weffc++ -Werror"
+NEEDED_CXXFLAGS="-Wall"
 AC_SUBST([CXX11_FLAGS])
 AC_SUBST([NEEDED_CXXFLAGS])
 
 # Checks for programs
+LT_INIT
+LT_LANG([C++])
 AC_PROG_CXX
 AC_PROG_RANLIB
 

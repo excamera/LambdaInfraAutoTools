@@ -4,14 +4,18 @@
 # in this option separated by a space
 #
 
-AM_CPPFLAGS = $(CXX11_FLAGS)
-AM_CXXFLAGS = $(NEEDED_CXXFLAGS)
-
 bin_PROGRAMS              = helloworld
 helloworlddir             = src
 helloworld_LDFLAGS        = -static
-helloworld_SOURCES        = helloworld.cc
+helloworld_SOURCES        = helloworld.c
 helloworld_PROGRAMS       = helloworld
-nodist_helloworld_SOURCES = helloworld.hh
 noinst_LIBRARIES          = libhelloworld.a
-libhelloworld_a_SOURCES   = helloworld.hh helloworld.cc
+libhelloworld_a_SOURCES   = helloworld.c
+
+build: helloworld
+lambdainstall: build
+	$(shell ./setuplambda.sh $<)
+lambdaupdate: build
+	$(shell ./updatelambda.sh $<)
+check: build
+	$(shell ./invokelambda.sh $<)
