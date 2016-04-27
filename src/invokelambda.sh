@@ -2,7 +2,7 @@
 
 aws lambda invoke \
 --invocation-type RequestResponse \
---function-name HelloWorld \
+--function-name Helloworldv1 \
 --payload '{}' \
 --region 'eu-west-1' \
 --profile adminuser \
