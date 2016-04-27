@@ -3,6 +3,7 @@ import json
 
 (output, ret_code)=invokeLambda('Helloworldv1')
 output = json.loads(output)
+print "Output : %s" % output['output']
 if output['output'] == "Hello World" and ret_code == 200:
 	print "Invocation Success"
 else:
