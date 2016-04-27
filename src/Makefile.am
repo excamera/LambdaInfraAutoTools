@@ -4,12 +4,14 @@
 # in this option separated by a space
 #
 
-SUBDIRS=lambda
-
 AM_CPPFLAGS = $(CXX11_FLAGS)
 AM_CXXFLAGS = $(NEEDED_CXXFLAGS)
 
-noinst_LIBRARIES = liblambda.a
-
-liblambda_a_SOURCES = lambda/helloworld.hh \
-		      lambda/helloworld.cc
+bin_PROGRAMS              = helloworld
+helloworlddir             = src
+helloworld_LDFLAGS        = -static
+helloworld_SOURCES        = helloworld.cc
+helloworld_PROGRAMS       = helloworld
+nodist_helloworld_SOURCES = helloworld.hh
+noinst_LIBRARIES          = libhelloworld.a
+libhelloworld_a_SOURCES   = helloworld.hh helloworld.cc
