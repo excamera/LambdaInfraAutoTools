@@ -1,6 +1,6 @@
 from sign_invoke import invokeLambda
 import json
-
+import os
 (output, ret_code)=invokeLambda(os.environ.get('LAMBDA_NAME'))
 output = json.loads(output)
 print "Output : %s" % output['output']
