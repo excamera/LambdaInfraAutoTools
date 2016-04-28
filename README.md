@@ -11,9 +11,11 @@ Enviroment Variables:
 
 You have to set the following variables
 
-	"AWS_ACCESS_KEY_ID",
+	"AWS_ACCESS_KEY_ID", 
 	"AWS_SECRET_ACCESS_KEY",
-	"ROLE"
+	"ROLE"   - This is the role that the lambda will assume when running.
+
+You need to have a adminuser profile in ~/.aws/credentials
 
 To build:
 
