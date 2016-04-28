@@ -1,7 +1,7 @@
 from sign_invoke import invokeLambda
 import json
-
-(output, ret_code)=invokeLambda('Helloworldv1')
+import os
+(output, ret_code)=invokeLambda(os.environ.get('LAMBDA_NAME'))
 output = json.loads(output)
 print "Output : %s" % output['output']
 if output['output'] == "Hello World" and ret_code == 200:

@@ -44,4 +44,3 @@ def invokeLambda(lambda_name):
 	r = requests.post(endpoint, data=request_parameters, headers=headers)
 	return (r.text, r.status_code)
 
-invokeLambda('HelloWorld')
