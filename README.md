@@ -32,4 +32,7 @@ To update:
 	$ make updateinstall
 	$ make check
 
+To clean tmp files before commiting to git:
+
+	$ ./clean.sh
 File "SampleOutput.md" has a sample execution
