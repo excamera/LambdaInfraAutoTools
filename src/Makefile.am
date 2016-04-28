@@ -14,8 +14,8 @@ libhelloworld_a_SOURCES   = helloworld.c
 
 build: helloworld
 lambdainstall: build
-	$(shell ./setuplambda.sh $<)
+	./setuplambda.sh
 lambdaupdate: build
-	$(shell ./updatelambda.sh $<)
+	./updatelambda.sh
 check: build
-	$(python ./test_invoke.py $<)
+	python ./test_invoke.py
