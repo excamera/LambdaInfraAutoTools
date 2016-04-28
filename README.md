@@ -2,6 +2,7 @@
 Pipeline support for excamera
 
 Dependencies:
+
 	autoconf & awscli
 	$ pip install autoconf
 	$ pip install awscli
@@ -9,6 +10,7 @@ Dependencies:
 Enviroment Variables:
 
 You have to set the following variables
+
 "AWS_ACCESS_KEY_ID",
 "AWS_SECRET_ACCESS_KEY",
 "ROLE"
