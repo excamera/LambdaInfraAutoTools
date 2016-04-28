@@ -4,7 +4,7 @@ Pipeline support for excamera
 Dependencies:
 
 	autoconf & awscli
-	$ pip install autoconf
+	$ sudo apt-get install autoconf
 	$ pip install awscli
 
 Enviroment Variables:
