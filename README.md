@@ -14,6 +14,7 @@ You have to set the following variables
 	"AWS_ACCESS_KEY_ID", 
 	"AWS_SECRET_ACCESS_KEY",
 	"ROLE"   - This is the role that the lambda will assume when running.
+	"LAMBDA_NAME" - The name of the lambda
 
 You need to have a adminuser profile in ~/.aws/credentials
 
