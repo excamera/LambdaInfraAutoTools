@@ -3,9 +3,10 @@ Pipeline support for excamera
 
 Dependencies:
 
-	autoconf & awscli
-	$ sudo apt-get install autoconf
+	automake, autoconf & awscli
+	$ (Linux) : sudo apt-get install autoconf
 	$ pip install awscli
+	$ (OS X) : brew install autoconf && brew install automake
 
 Enviroment Variables:
 
